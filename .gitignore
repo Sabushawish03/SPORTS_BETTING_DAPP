@@ -1,0 +1,7 @@
+node_modules/
+blockchain/build/
+frontend/**/dist/
+.env
+*.env
+.DS_Store
+.vscode/
