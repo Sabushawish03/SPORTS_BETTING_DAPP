@@ -1,18 +1,26 @@
+// src/components/ClaimButton.jsx
 import { getBettingContract } from "./ethersConfig";
 
-export default function ClaimButton({ marketId }) {
-  const claim = async () => {
+function ClaimButton({ marketId, disabled }) {
+  const handleClaim = async () => {
+    if (disabled) return;
     try {
       const { contract } = await getBettingContract();
-      const tx = await contract.claim(marketId);
+      const tx = await contract.claimWinnings(marketId);
       const receipt = await tx.wait();
-      alert(`Claim successful! Gas used: ${receipt.gasUsed.toString()}`);
+      alert(`Winnings claimed! Gas used: ${receipt.gasUsed.toString()}`);
     } catch (err) {
       console.error(err);
-      alert(err.message);
+      alert(err?.reason || err?.message || "Claim failed");
     }
   };
 
-  return <button onClick={claim}>Claim Winnings</button>;
+  return (
+    <button className="gd-secondary-btn" disabled={disabled} onClick={handleClaim}>
+      Claim Winnings
+    </button>
+  );
 }
+
+export default ClaimButton;
 
