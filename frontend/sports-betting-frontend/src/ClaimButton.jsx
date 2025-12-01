@@ -6,7 +6,7 @@ function ClaimButton({ marketId, disabled }) {
     if (disabled) return;
     try {
       const { contract } = await getBettingContract();
-      const tx = await contract.claimWinnings(marketId);
+      const tx = await contract.claim(marketId);
       const receipt = await tx.wait();
       alert(`Winnings claimed! Gas used: ${receipt.gasUsed.toString()}`);
     } catch (err) {

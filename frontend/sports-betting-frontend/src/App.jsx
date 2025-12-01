@@ -34,7 +34,7 @@ function App() {
   const loadMarkets = async () => {
     try {
       const { contract } = await getBettingContract();
-      const count = await contract.marketCount();
+      const count = await contract.nextMarketId();
       const temp = [];
       for (let i = 0; i < Number(count); i++) {
         const m = await contract.markets(i);
